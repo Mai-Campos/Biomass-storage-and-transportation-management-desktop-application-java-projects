@@ -1,0 +1,4 @@
+id=Maikol,username=1,password=1234,role=2
+id=Kevin,username=2,password=5678,role=1
+id=Melissa,username=3,password=meli,role=0
+

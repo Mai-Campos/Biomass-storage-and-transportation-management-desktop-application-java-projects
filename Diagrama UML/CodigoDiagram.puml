@@ -1,0 +1,72 @@
+@startuml
+class User <<abstract>> {
+  - id: int
+  - userName: string
+  - password: string
+  + getUsers(): List<User>
+  + saveUser(): void
+  + userExist(id: string): boolean
+}
+
+class Admin extends User {
+  + manageStores(): void
+}
+
+class Chofer extends User {
+  + driveVehicle(): void
+}
+
+class Grocer extends User {
+  + manageInventory(): void
+}
+
+
+class Store <<abstract>> {
+  - id: int
+  - name: string
+  - capacity: int
+  - personal: Grocer
+  + saveStores(): void
+  + getStores(): List<Store>
+}
+class Biomass {
+  - biomassName: string
+  - amount: int
+  - state: string
+  + getBiomass(): List<Biomass>
+  + saveBiomass(): void
+}
+
+class ResidualBiomassStore extends Store {
+  + manageResidualBiomass(): void
+}
+
+class ForestalBiomassStore extends Store {
+  + manageForestalBiomass(): void
+}
+
+class Vehicles <<abstract>> {
+  - id: int
+  - matricle: string
+  - capacity: int
+  + getVehicles(): List<Vehicles>
+  + saveVehicles(): void
+}
+
+class Truck extends Vehicles {
+  + transportGoods(): void
+}
+
+class Car extends Vehicles {
+  + transportPeople(): void
+}
+
+class Bike extends Vehicles {
+  + transportSmallGoods(): void
+}
+
+Grocer --* Store
+Chofer --* Vehicles
+Store --* Biomass
+
+@enduml
