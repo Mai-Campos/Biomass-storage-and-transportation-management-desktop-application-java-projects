@@ -1,3 +1,1 @@
-id=1,matricle=sdasa,capacity =324,type=0
-id=2,matricle=dfs,capacity =42342,type=1
-id=2,matricle=dfs,capacity =42342,type=2
+id=1,matricle=dsa,capacity =342423,type=0

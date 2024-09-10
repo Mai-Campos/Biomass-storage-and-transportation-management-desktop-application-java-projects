@@ -10,7 +10,10 @@ import controllers.ResidualBiomassStore;
 import controllers.Store;
 import controllers.User;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -458,12 +461,21 @@ public class FrmGrocer extends javax.swing.JFrame {
     }//GEN-LAST:event_textGrocerActionPerformed
 
     private void btnNewMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnNewMouseClicked
-        if ( !textName.getText().equals("") && !textCapacity.getText().equals("") && !textPersonal.getText().equals("") ) {
+         if ( !textName.getText().equals("") && !textCapacity.getText().equals("") && !textPersonal.getText().equals("" ) ) {
                     if (isValidCapacity(textCapacity.getText(), textPersonal.getText())) {
-
+                        
             DefaultTableModel model = (DefaultTableModel)tblStores.getModel();        
             String type = null;
+            String name = textName.getText();
+            boolean exists = false;
+            for (int i = 0; i < model.getRowCount(); i++) {
+                if (model.getValueAt(i, 1).toString().equals(name)) {
+                    exists = true;
+                    break;
+                }
+            }
             int id = model.getRowCount() + 1;
+            if(!exists){
             switch (cmbType.getSelectedIndex()) { 
                 case 0:
                     type="Biomasa Forestal";
@@ -479,6 +491,9 @@ public class FrmGrocer extends javax.swing.JFrame {
             textCapacity.setText("");
             textPersonal.setText("");
             cmbType.setSelectedIndex(0);
+        }else{
+            JOptionPane.showMessageDialog(null, "El almacen ya existe");
+        }
         }
         }
             // TODO add your handling code here:
@@ -587,24 +602,61 @@ public class FrmGrocer extends javax.swing.JFrame {
     }//GEN-LAST:event_tblStoresMouseClicked
 
     private void btnAdminMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAdminMouseClicked
+         if (tblStores.getRowCount() == 0) {
+            JOptionPane.showMessageDialog(null, "No hay filas en la tabla", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        
         int row = tblStores.getSelectedRow();
     DefaultTableModel model = (DefaultTableModel)tblStores.getModel();
-    String tipoAlmacen = model.getValueAt(row, 1).toString(); // asumiendo que la columna 1 es el tipo de almacén
-
+    String tipoAlmacen = model.getValueAt(row, 4).toString();
+    String nombreAlmacen = model.getValueAt(row, 1).toString();// asumiendo que la columna 1 es el tipo de almacén
+    Store store = getStoreFromRow(row, model);
     FrmBiomass frmBiomass = new FrmBiomass();
+        FrmBiomass.lblStoreName.setText(nombreAlmacen);
 
     if (tipoAlmacen.equals("Biomasa Forestal")) {
-        frmBiomass.lbl.setText("Almacén de Biomasa Forestal");
-        frmBiomass.lbl.setVisible(true);
-    } else if (tipoAlmacen.equals("Residual")) {
-        frmBiomass.lbl.setText("Almacén de Biomasa Residual");
-        frmBiomass.lbl.setVisible(true);
+        frmBiomass.lblStore.setText("Almacén de Biomasa Forestal");
+        frmBiomass.lblStore.setVisible(true);
+        frmBiomass.setLocationRelativeTo(null);
+    } else if (tipoAlmacen.equals("Biomasa Residual")) {
+        frmBiomass.lblStore.setText("Almacén de Biomasa Residual");
+        frmBiomass.lblStore.setVisible(true);
+        frmBiomass.setLocationRelativeTo(null);
     }
+    
+    this.setState(JFrame.ICONIFIED);
+    frmBiomass.addWindowListener(new WindowAdapter() {
+       
+        public void windowClosed(WindowEvent e) {
+            // Restaurar la ventana de almacen
+            FrmGrocer.this.setState(JFrame.NORMAL);
+        }
+    });
 
     frmBiomass.setVisible(true);
      /// TODO add your handling code here:
     }//GEN-LAST:event_btnAdminMouseClicked
 
+    private Store getStoreFromRow(int row, DefaultTableModel model) {
+        // Obtener el almacén seleccionado desde la tabla
+        String id = model.getValueAt(row, 0).toString();
+        String name = model.getValueAt(row, 1).toString();
+        int capacity = Integer.parseInt(model.getValueAt(row, 2).toString());
+        int personal = Integer.parseInt(model.getValueAt(row, 3).toString());
+        String type = model.getValueAt(row, 4).toString();
+    
+        Store store;
+        if (type.equals("Biomasa Forestal")) {
+            store = new ForestalBiomassStore(id, name, capacity, personal);
+        } else if (type.equals("Biomasa Residual")) {
+            store = new ResidualBiomassStore(id, name, capacity, personal);
+        } else {
+            throw new RuntimeException("Tipo de almacén desconocido");
+        }
+    
+        return store;
+    }
     /**
      * @param args the command line arguments
      */

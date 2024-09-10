@@ -1,2 +1,1 @@
-id=1,name=saddsa,capacity =43,personal =2344,type=0
-id=2,name=sdfd,capacity =43534,personal =234,type=1
+id=1,name=dsad,capacity =32432,personal =324,type=0

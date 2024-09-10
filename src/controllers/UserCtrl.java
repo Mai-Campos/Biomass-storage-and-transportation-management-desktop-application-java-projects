@@ -64,7 +64,7 @@ public class UserCtrl {
         }
         // Captura de cualquier otra excepción
         catch(Exception ex) {
-            System.out.println("Error de lectura del fichero");
+            
         }
         // Asegurar el cierre del fichero en cualquier caso
         finally {

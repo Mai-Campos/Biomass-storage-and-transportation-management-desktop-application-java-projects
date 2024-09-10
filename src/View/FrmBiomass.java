@@ -35,8 +35,7 @@ public class FrmBiomass extends javax.swing.JFrame {
     private void initComponents() {
 
         Jpanel1 = new javax.swing.JPanel();
-        lbl = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        lblStore = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblBiomass = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
@@ -48,6 +47,8 @@ public class FrmBiomass extends javax.swing.JFrame {
         btnClose = new javax.swing.JButton();
         btnNew = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
+        lblStoreName = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -56,16 +57,11 @@ public class FrmBiomass extends javax.swing.JFrame {
         Jpanel1.setBackground(new java.awt.Color(0, 153, 153));
         Jpanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        lbl.setFont(new java.awt.Font("Dubai Medium", 0, 18)); // NOI18N
-        lbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Jpanel1.add(lbl, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, -1));
-
-        jLabel1.setBackground(new java.awt.Color(0, 153, 153));
-        jLabel1.setFont(new java.awt.Font("Dubai Medium", 1, 24)); // NOI18N
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Agregar Biomasa a Almacen");
-        jLabel1.setOpaque(true);
-        Jpanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, -4, 470, 40));
+        lblStore.setBackground(new java.awt.Color(0, 153, 153));
+        lblStore.setFont(new java.awt.Font("Dubai Medium", 1, 24)); // NOI18N
+        lblStore.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblStore.setOpaque(true);
+        Jpanel1.add(lblStore, new org.netbeans.lib.awtextra.AbsoluteConstraints(-4, -4, 470, 40));
 
         tblBiomass.setBackground(new java.awt.Color(204, 204, 204));
         tblBiomass.setModel(new javax.swing.table.DefaultTableModel(
@@ -123,7 +119,7 @@ public class FrmBiomass extends javax.swing.JFrame {
         Jpanel1.add(textAmount, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 290, 80, 20));
 
         cmbState.setBackground(new java.awt.Color(204, 204, 204));
-        cmbState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bueno", "Regula", "Malo" }));
+        cmbState.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bueno", "Regular", "Malo" }));
         cmbState.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         Jpanel1.add(cmbState, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 290, 80, 20));
 
@@ -141,7 +137,7 @@ public class FrmBiomass extends javax.swing.JFrame {
                 btnCloseActionPerformed(evt);
             }
         });
-        Jpanel1.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 350, 80, 30));
+        Jpanel1.add(btnClose, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 340, 80, 30));
 
         btnNew.setBackground(new java.awt.Color(204, 204, 204));
         btnNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/images/add.png"))); // NOI18N
@@ -157,7 +153,7 @@ public class FrmBiomass extends javax.swing.JFrame {
                 btnNewActionPerformed(evt);
             }
         });
-        Jpanel1.add(btnNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 90, 30));
+        Jpanel1.add(btnNew, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 90, 30));
 
         btnDelete.setBackground(new java.awt.Color(204, 204, 204));
         btnDelete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/View/images/delete.png"))); // NOI18N
@@ -168,7 +164,15 @@ public class FrmBiomass extends javax.swing.JFrame {
                 btnDeleteMouseClicked(evt);
             }
         });
-        Jpanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 350, 80, 30));
+        Jpanel1.add(btnDelete, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 340, 80, 30));
+
+        lblStoreName.setEditable(false);
+        lblStoreName.setBackground(new java.awt.Color(102, 102, 102));
+        lblStoreName.setForeground(new java.awt.Color(255, 255, 255));
+        Jpanel1.add(lblStoreName, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 380, 100, 30));
+
+        jLabel1.setText("Almacen:");
+        Jpanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 390, 50, 20));
 
         getContentPane().add(Jpanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 470, 420));
 
@@ -291,7 +295,8 @@ public class FrmBiomass extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JScrollPane jScrollPane1;
-    public static javax.swing.JLabel lbl;
+    public static javax.swing.JLabel lblStore;
+    public static javax.swing.JTextField lblStoreName;
     private javax.swing.JTable tblBiomass;
     private javax.swing.JTextField textAmount;
     private javax.swing.JTextField textBiomass;
