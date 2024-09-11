@@ -23,6 +23,7 @@ public class FrmUsers extends javax.swing.JFrame {
     
     private User loginUser;
     private ArrayList<User> data;
+    private boolean change = false;
     
     public void setLoginUser(User user) {
         this.loginUser = user;
@@ -348,6 +349,7 @@ public class FrmUsers extends javax.swing.JFrame {
             textPassword.setText("");
             cmbRole.setSelectedIndex(0);
         }// TODO add your handling code here:
+        change = true;
     }//GEN-LAST:event_btnNewMouseClicked
 
     private void btnEditMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditMouseClicked
@@ -370,6 +372,7 @@ public class FrmUsers extends javax.swing.JFrame {
             }
             model.setValueAt(role, row, 3);
         }        // TODO add your handling code here:
+        change = true;
     }//GEN-LAST:event_btnEditMouseClicked
 
     private void btnDeleteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDeleteMouseClicked
@@ -398,17 +401,31 @@ public class FrmUsers extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar el usuario que desea eliminar", "Eliminar Usuario", JOptionPane.INFORMATION_MESSAGE);            
         }        // TODO add your handling code here:
+        change = true;
     }//GEN-LAST:event_btnDeleteMouseClicked
 
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
-        FrmLogin frmlogin = new FrmLogin();
+       if(change){
+         int confirm =  JOptionPane.showConfirmDialog(null, "Hay cambios sin guardar, desea salir igualmente?", "Salir", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+         if(confirm == 0){
+             FrmLogin frmlogin = new FrmLogin();
         frmlogin.setVisible(true);
         frmlogin.setLocationRelativeTo(null);                                                        
         
-        this.dispose();        // TODO add your handling code here:
+        this.dispose();       
+         }
+       }else{
+       FrmLogin frmlogin = new FrmLogin();
+        frmlogin.setVisible(true);
+        frmlogin.setLocationRelativeTo(null);                                                        
+        
+        this.dispose(); 
+       }
+       
     }//GEN-LAST:event_btnCloseMouseClicked
 
     private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
+       
         DefaultTableModel model = (DefaultTableModel)usersTable.getModel();
         ArrayList<User> arrayUsers = new ArrayList<>();
 
@@ -439,11 +456,10 @@ public class FrmUsers extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error al guardar los datos", "Usuarios", JOptionPane.ERROR_MESSAGE);                        
         }        // TODO add your handling code here:
+        change = false;
     }//GEN-LAST:event_btnSaveMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
+   
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">

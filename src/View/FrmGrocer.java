@@ -23,6 +23,7 @@ public class FrmGrocer extends javax.swing.JFrame {
     private User loginUser;
     private boolean edited;
     private ArrayList<Store>data;
+    private boolean change = false;
    
 
    
@@ -496,6 +497,7 @@ public class FrmGrocer extends javax.swing.JFrame {
         }
         }
         }
+         change = true;
             // TODO add your handling code here:
     }//GEN-LAST:event_btnNewMouseClicked
 
@@ -518,6 +520,7 @@ public class FrmGrocer extends javax.swing.JFrame {
             }
             model.setValueAt(type, row, 4);
         } 
+        change = true;
                 // TODO add your handling code here:
     }//GEN-LAST:event_btnEditMouseClicked
 
@@ -546,16 +549,28 @@ public class FrmGrocer extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Debe seleccionar el almacen que desea eliminar", "Eliminar Almacen", JOptionPane.INFORMATION_MESSAGE);            
         } 
+       
+        change = true;
 
 // TODO add your handling code here:
     }//GEN-LAST:event_btnDeleteMouseClicked
 
     private void btnCloseMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCloseMouseClicked
-        FrmLogin frmlogin = new FrmLogin();
+        if(change){
+         int confirm =  JOptionPane.showConfirmDialog(null, "Hay cambios sin guardar, desea salir igualmente?", "Salir", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE);
+         if(confirm == 0){
+             FrmLogin frmlogin = new FrmLogin();
         frmlogin.setVisible(true);
         frmlogin.setLocationRelativeTo(null);                                                        
         
-        this.dispose();        // TODO add your handling code here:
+        this.dispose();       
+         }
+       }   else{
+          FrmLogin frmlogin = new FrmLogin();
+        frmlogin.setVisible(true);
+        frmlogin.setLocationRelativeTo(null);                                                        
+        
+        this.dispose();       }   // TODO add your handling code here:
     }//GEN-LAST:event_btnCloseMouseClicked
 
     private void btnSaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnSaveMouseClicked
@@ -587,6 +602,7 @@ public class FrmGrocer extends javax.swing.JFrame {
         } else {
             JOptionPane.showMessageDialog(null, "Ha ocurrido un error al guardar los datos", "Almacenes", JOptionPane.ERROR_MESSAGE);                        
         } 
+        change = false;
 // TODO add your handling code here:
     }//GEN-LAST:event_btnSaveMouseClicked
 
